@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мамин Курник — История семейного рецепта</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #C9982A;
+            --cream: #F5F0E8;
+            --terracotta: #C0614A;
+            --brown: #7B4F2E;
+            --dark: #2C1A0E;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a0f08 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(201, 152, 42, 0.15) 100%);
+            pointer-events: none;
+        }
+
+        .hero-logo {
+            max-width: 300px;
+            width: 80%;
+            margin-bottom: 3rem;
+            animation: logoPulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 40px rgba(201, 152, 42, 0.3));
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .hero-text {
+            text-align: center;
+            color: var(--cream);
+        }
+
+        .hero-text .word {
+            display: inline-block;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-family: 'Playfair Display', serif;
+            opacity: 0;
+            animation: fadeInWord 1s ease forwards;
+        }
+
+        .hero-text .word:nth-child(1) { animation-delay: 0.5s; }
+        .hero-text .word:nth-child(2) { animation-delay: 1s; }
+        .hero-text .word:nth-child(3) { animation-delay: 1.5s; }
+
+        @keyframes fadeInWord {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--gold);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Timeline Section */
+        .timeline {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), var(--terracotta));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 8rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 0 3rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .timeline-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--brown);
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 0 10px var(--cream);
+        }
+
+        /* Special Section */
+        .special {
+            background: var(--cream);
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(201, 152, 42, 0.05) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .special-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .special h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .special-item {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            line-height: 2;
+            color: var(--brown);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .special-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .special-item:nth-child(2) { transition-delay: 0.1s; }
+        .special-item:nth-child(3) { transition-delay: 0.2s; }
+        .special-item:nth-child(4) { transition-delay: 0.3s; }
+        .special-item:nth-child(5) { transition-delay: 0.4s; }
+
+        /* B2B Section */
+        .b2b-intro {
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--brown) 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            color: var(--cream);
+        }
+
+        .b2b-intro h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .b2b-intro p {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            opacity: 0.9;
+        }
+
+        .b2b-packages {
+            padding: 6rem 2rem;
+            background: white;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .package-card {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--gold);
+        }
+
+        .package-number {
+            font-size: 1rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .package-items {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-items li {
+            padding: 0.5rem 0;
+            color: var(--brown);
+            line-height: 1.6;
+        }
+
+        .package-items li::before {
+            content: '•';
+            color: var(--terracotta);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .package-price {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--terracotta);
+            margin-top: 1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--dark);
+            padding: 8rem 2rem;
+            text-align: center;
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(201, 152, 42, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-quote {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-family: 'Playfair Display', serif;
+            line-height: 1.5;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1.5rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn.telegram {
+            background: #0088cc;
+            color: white;
+        }
+
+        .cta-btn.whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .cta-btn.phone {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(201, 152, 42, 0.2);
+        }
+
+        .footer-logo {
+            max-width: 80px;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .footer-text {
+            color: var(--cream);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+            }
+
+            .timeline-content {
+                margin: 0 0 0 4rem;
+            }
+
+            .timeline-icon {
+                left: 30px;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <img class="hero-logo" src="data:image/png;base64,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" alt="Мамин Курник">
+        <div class="hero-text">
+            <span class="word">С любовью</span><br>
+            <span class="word">от наших</span><br>
+            <span class="word">предков</span>
+        </div>
+        <div class="scroll-indicator" onclick="document.querySelector('.timeline').scrollIntoView({behavior: 'smooth'})">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-year">1910-е</div>
+                <div class="timeline-text">
+                    В маленьком городке Чехии прадедушка Натальи открывает семейную пекарню.
+                    Его фирменный курник становится гордостью всей округи. Рецепт передается устно,
+                    как самое ценное наследие.
+                </div>
+            </div>
+            <div class="timeline-icon">🥖</div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-year">1970-е</div>
+                <div class="timeline-text">
+                    Семья переезжает в Россию. Рецепт курника путешествует через поколения,
+                    через границы и эпохи. Бабушка учит маму, мама учит дочь.
+                    Каждая крошка теста — это память о доме.
+                </div>
+            </div>
+            <div class="timeline-icon">🏠</div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-year">2020</div>
+                <div class="timeline-text">
+                    Наталья Говорова принимает решение: этот рецепт должен жить дальше.
+                    Не в архиве, не в записной книжке — а на столах людей, которые ценят настоящее.
+                    Открывается "Мамин Курник" в Мытищах.
+                </div>
+            </div>
+            <div class="timeline-icon">✨</div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-year">Сегодня</div>
+                <div class="timeline-text">
+                    3 года работы. Стабильная команда. Сотни довольных клиентов.
+                    И каждое утро в 5:00 мы начинаем печь так же, как это делал прадедушка в Чехии.
+                    Потому что традиции живут в деталях.
+                </div>
+            </div>
+            <div class="timeline-icon">❤️</div>
+        </div>
+    </section>
+
+    <!-- Special Section -->
+    <section class="special">
+        <div class="special-content">
+            <h2>Что особенного в нашей кухне</h2>
+            <div class="special-item">Мы не используем полуфабрикаты. Никогда.</div>
+            <div class="special-item">Каждое утро в 5:00 начинается свежая выпечка</div>
+            <div class="special-item">Борщ варится 4 часа. Котлеты лепятся руками.</div>
+            <div class="special-item">Это так, как готовила ваша мама.</div>
+        </div>
+    </section>
+
+    <!-- B2B Intro -->
+    <section class="b2b-intro">
+        <h2>А теперь — деловое предложение</h2>
+        <p>Всё это — прямо к вашим сотрудникам</p>
+    </section>
+
+    <!-- B2B Packages -->
+    <section class="b2b-packages">
+        <div class="packages-grid">
+            <div class="package-card">
+                <div class="package-number">Комплекс №1</div>
+                <div class="package-name">Классика</div>
+                <ul class="package-items">
+                    <li>Борщ домашний с курицей</li>
+                    <li>Котлета куриная</li>
+                    <li>Гречка отварная</li>
+                    <li>Салат из свежих овощей</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">350 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №2</div>
+                <div class="package-name">Традиционный</div>
+                <ul class="package-items">
+                    <li>Щи кислые со свининой</li>
+                    <li>Котлета из говядины</li>
+                    <li>Картофельное пюре</li>
+                    <li>Огурцы соленые</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">380 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №3</div>
+                <div class="package-name">Рыбный день</div>
+                <ul class="package-items">
+                    <li>Уха из семги</li>
+                    <li>Рыбная котлета</li>
+                    <li>Рис отварной</li>
+                    <li>Капуста тушеная</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">420 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №4</div>
+                <div class="package-name">Постный</div>
+                <ul class="package-items">
+                    <li>Суп овощной</li>
+                    <li>Котлета из фасоли</li>
+                    <li>Гречка с грибами</li>
+                    <li>Салат витаминный</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">320 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №5</div>
+                <div class="package-name">Сытный</div>
+                <ul class="package-items">
+                    <li>Солянка мясная</li>
+                    <li>Котлета рубленая</li>
+                    <li>Макароны отварные</li>
+                    <li>Помидоры свежие</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">390 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №6</div>
+                <div class="package-name">Легкий</div>
+                <ul class="package-items">
+                    <li>Бульон куриный с яйцом</li>
+                    <li>Куриная грудка на пару</li>
+                    <li>Овощи на гриле</li>
+                    <li>Зелень свежая</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">340 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №7</div>
+                <div class="package-name">Мясной</div>
+                <ul class="package-items">
+                    <li>Борщ со свининой</li>
+                    <li>Котлета свиная</li>
+                    <li>Картофель жареный</li>
+                    <li>Капуста квашеная</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">400 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №8</div>
+                <div class="package-name">С пловом</div>
+                <ul class="package-items">
+                    <li>Шурпа из баранины</li>
+                    <li>Плов с говядиной</li>
+                    <li>Салат из помидоров</li>
+                    <li>Лук маринованный</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">450 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №9</div>
+                <div class="package-name">Домашний</div>
+                <ul class="package-items">
+                    <li>Суп лапша домашняя</li>
+                    <li>Тефтели в томате</li>
+                    <li>Гречка рассыпчатая</li>
+                    <li>Огурцы малосольные</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">360 ₽</div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-number">Комплекс №10</div>
+                <div class="package-name">Фирменный</div>
+                <ul class="package-items">
+                    <li>Борщ по-домашнему</li>
+                    <li>Курник (фирменный пирог)</li>
+                    <li>Салат "Цезарь"</li>
+                    <li>Морс клюквенный</li>
+                    <li>Хлеб</li>
+                </ul>
+                <div class="package-price">480 ₽</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <div class="cta-quote">
+                "Первые 3 дня — бесплатно. <br>
+                Потому что мы уверены, <br>
+                что вам понравится."
+            </div>
+            <div class="cta-buttons">
+                <a href="https://t.me/maminkurnik" class="cta-btn telegram">Telegram</a>
+                <a href="https://wa.me/79999999999" class="cta-btn whatsapp">WhatsApp</a>
+                <a href="tel:+79999999999" class="cta-btn phone">Позвонить</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <img class="footer-logo" src="data:image/png;base64,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" alt="Мамин Курник">
+        <div class="footer-text">
+            © 2024 Мамин Курник · Мытищи · Семейный рецепт с душой
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for timeline items
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            timelineObserver.observe(item);
+        });
+
+        // Observe special items
+        document.querySelectorAll('.special-item').forEach(item => {
+            timelineObserver.observe(item);
+        });
+    </script>
+
+</body>
+</html>
